@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Controle de Baldes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.png" />
+</head>
+<body>
+  <header>
+    <h1>Controle de Baldes</h1>
+    <div class="actions">
+      <button id="toggleTheme">🌙</button>
+      <button id="historyToggle">📜</button>
+      <button id="soundToggle">🔈</button>
+      <button id="resetAll">🗑️</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="addPersonSection">
+      <input id="personName" placeholder="Nome da pessoa" />
+      <button id="addPerson">Adicionar Pessoa</button>
+<button id="voiceBtn">🎤</button>
+    </section>
+
+
+    <section id="peopleList"></section>
+
+    <section id="historySection" class="hidden">
+      <h2>Histórico</h2>
+      <div id="historyList"></div>
+    </section>
+
+ <section id="obsSection">
+  <div id="obsHeader" class="collapsible-header">Observações</div>
+  <div id="obsBody" class="collapsible-body">
+    <textarea id="obsText" placeholder="Digite observação"></textarea>
+    <button id="addObs">Adicionar Observação</button>
+    <ul id="obsList"></ul>
+  </div>
+</section>
+
+    <button id="shareWA" class="btn-share">📤 Compartilhar no WhatsApp</button>
+  </main>
+
+  <audio id="plusSound"  src="plus.mp3"  preload="auto"></audio>
+  <audio id="minusSound" src="minus.mp3" preload="auto"></audio>
+  <audio id="resetSound" src="trash.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>

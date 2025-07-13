@@ -1,0 +1,1 @@
+const CACHE='baldes-cache-v4';const ASSETS=['./','./index.html','./style.css','./script.js','./plus.mp3','./minus.mp3','./trash.mp3','./manifest.json','./icon.png'];self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
