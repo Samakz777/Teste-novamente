@@ -1,4 +1,4 @@
-const API_URL = "https://controle-baldes-api000.vercel.app/api/comando";
+const API_URL = https://n-o-sabo-b8kx-5xk2j72wt-samas-projects-b2ffde6b.vercel.app
 document.addEventListener('DOMContentLoaded',()=>{const $=id=>document.getElementById(id);
 const plusSound=$('plusSound'),minusSound=$('minusSound'),trashSound=$('resetSound');
 let soundOn=localStorage.getItem('baldesSound')==='1';$('soundToggle').textContent=soundOn?'🔊':'🔈';
