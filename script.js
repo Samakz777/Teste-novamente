@@ -86,3 +86,46 @@ if (voiceBtn && ("SpeechRecognition" in window || "webkitSpeechRecognition" in w
 } else {
   console.warn("Reconhecimento de voz não suportado neste navegador.");
 }
+
+// ✅ Reconhecimento de voz + chamada à API
+const voiceBtn = document.getElementById("voiceBtn");
+if (voiceBtn && ("SpeechRecognition" in window || "webkitSpeechRecognition" in window)) {
+  const recog = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recog.lang = "pt-BR";
+
+  voiceBtn.addEventListener("click", () => {
+    recog.start();
+    voiceBtn.classList.add("listening");
+  });
+
+  recog.addEventListener("end", () => {
+    voiceBtn.classList.remove("listening");
+  });
+
+  recog.addEventListener("result", async (e) => {
+    const frase = e.results[0][0].transcript;
+    try {
+      const resposta = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mensagem: frase })
+      });
+      const data = await resposta.json();
+      const json = typeof data === "string" ? JSON.parse(data) : data;
+
+      if (json.acao === "adicionar_balde") {
+        let pessoa = pessoas.find(p => p.name.toLowerCase() === json.pessoa.toLowerCase());
+        if (!pessoa) {
+          pessoa = adicionarPessoa(json.pessoa);
+        }
+        adicionarBalde(pessoa.id, json.cerveja);
+        alert(`Balde de ${json.cerveja} adicionado para ${json.pessoa}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao processar comando por voz.");
+    }
+  });
+} else {
+  console.warn("Reconhecimento de voz não suportado neste navegador.");
+}
